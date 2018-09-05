@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:marc="http://www.loc.gov/MARC21/slim"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="marc">
-    <xsl:import href="MARC21slimUtils.xsl"/>
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="marc" >
+    <!-- <xsl:import href="MARC21slimUtils.xsl"/> -->
+	<xsl:import href="http://www.loc.gov/standards/marcxml/xslt/MARC21slimUtils.xsl"/>
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
-
-    <xsl:template match="/">
+<!-- 
+	Modified from MARC2EAD4Aspace by nnsmeltekop (University of Minnesota)
+	Modified by Geoffrey Skinner for creating EAD for Online Archive of California (OAC) upload), 2018-09-05
+	-->
+	  <xsl:template match="/">
         <?filetitle?>
         <ead>
             <eadheader>
@@ -13,7 +17,7 @@
                     <titlestmt>
                         <titleproper>
                             <xsl:text>Finding Aid for the </xsl:text>
-                            <!-- This will pick up $c in the 245, something I've left out in the unittitle field, but wanted to capture somewhere -->
+                            <!-- nnsmeltekop: This will pick up $c in the 245, something I've left out in the unittitle field, but wanted to capture somewhere -->
                             <xsl:for-each select="//marc:record/marc:datafield[@tag=245]">
                                 <xsl:value-of
                                     select="replace(normalize-space(//marc:record/marc:datafield[@tag=245]),'\p{P}$','')"
@@ -49,6 +53,12 @@
                         <persname role="creator">
                             <xsl:value-of select="."/>
                         </persname>
+                        <xsl:if test="marc:subfield[@code='e']">
+                            <xsl:text>: </xsl:text>
+                            <xsl:value-of
+                                select="replace(normalize-space(//marc:record/marc:datafield[@tag=100]/marc:subfield[@code='e']),'\p{P}$','')"
+                            />
+                        </xsl:if>
                     </origination>
                 </xsl:for-each>
                 <!--Added 700 field for contributors-->
@@ -92,7 +102,7 @@
                 </xsl:for-each>
               
                     <!-- Date field - may need to be edited depending on your institutional practice 
-                    TRY TO DO an IF test for each field and otherwise option for records without dates-->
+                    nnsmeltekop: TRY TO DO an IF test for each field and otherwise option for records without dates-->
                     <!--
                     <xsl:if test="marc:subfield[@code='f']!=''">
                         <unitdate type="inclusive">
@@ -131,7 +141,7 @@
                     </unitdate>
                 </xsl:for-each>
 
-                <!--Added 099-->
+                <!--Took out added 099
                 <xsl:for-each select="//marc:record/marc:datafield[@tag=099]">
                     <unitid>
                         <xsl:value-of
@@ -140,8 +150,8 @@
                         <xsl:value-of
                             select="marc:subfield[@code='f']" />
                     </unitid>
-                </xsl:for-each>
-                <!-- Took out 090
+                </xsl:for-each>-->
+                <!-- Added 090 -->
                 <xsl:if test="//marc:record/marc:datafield[@tag=090]">
                     <unitid>
                         <xsl:value-of
@@ -152,7 +162,7 @@
                         />
                     </unitid>
                 </xsl:if>
-                -->
+
                 <xsl:for-each select="marc:datafield[@tag=300]">
                     <physdesc altrender="whole">
                         
@@ -171,7 +181,7 @@
                            </xsl:otherwise>
                         </xsl:choose>
                         
-                        <!-- I opted to dump the entire 300 field so I could see if anything was missed.  This means spacing is a little wonky, but the data is there -->
+                        <!-- nnsmeltekop: I opted to dump the entire 300 field so I could see if anything was missed.  This means spacing is a little wonky, but the data is there -->
                         <extent altrender="carrier">
                             <xsl:value-of select="."/>
                         </extent>
@@ -191,7 +201,7 @@
                 </xsl:for-each>
                 
                 <!-- unitdate listed above on line 86 -->
-                <!--These maps are based on the EAD to MARC Crosswalk, and Terry's work-->
+                <!--nnsmeltekop: These maps are based on the EAD to MARC Crosswalk, and Terry's work-->
                 <xsl:for-each select="marc:datafield[@tag=254]">
                     <materialspec>
                         <xsl:value-of select="."/>
@@ -212,7 +222,7 @@
                             <xsl:text>.</xsl:text>
                         </langmaterial>
                     </xsl:when>
-                    <!-- Most of our material is in English, so I opted to add an otherwise clause for items where language isn't mentioned -->
+                    <!-- nnsmeltekop: Most of our material is in English, so I opted to add an otherwise clause for items where language isn't mentioned -->
                     <xsl:otherwise>
                         <langmaterial>Material is in <language>English</language> unless otherwise
                             noted.</langmaterial>
@@ -373,7 +383,7 @@
                     </p>
                 </odd>
             </xsl:for-each>
-            <!--The notes below I added based on what fields were used in the records.  These are not typical archives fields, so I used notes with headers.  The headers are the title of the field in MARC. -->
+            <!--nnsmeltekop: The notes below I added based on what fields were used in the records.  These are not typical archives fields, so I used notes with headers.  The headers are the title of the field in MARC. -->
                        <xsl:for-each select="marc:datafield[@tag=130]">
                 <odd>
                     <head>
@@ -582,7 +592,7 @@
                 </odd>
             </xsl:for-each>
             
-            <!--I opted for these to come after, since they aren't used much in our data, and thus, are less important to us.-->
+            <!--nnsmeltekop: I opted for these to come after, since they aren't used much in our data, and thus, are less important to us.-->
             <xsl:for-each select="marc:datafield[@tag=530]">
                 <altformavail encodinganalog="530" id="a9">
                     <p>

@@ -29,5 +29,5 @@ nsmeltekop writes: "I've commented in the stylesheet where I made decisions and 
 
 I'm a n00b at XSLT, so if anyone sees issues or places for improvements, please let me know.  I am also new at GitHub, so patience is appreciated!"
 
-## Modifier Notes
+## Contributor Notes
 I've taken nsmeltekop's XSLT and adapted it to transforming MARC to EAD for Online Archive of California for our institution. Mostly the same transforms apply, but there are some specific OAC-oriented changes added. These are commented for clarity.

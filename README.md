@@ -1,4 +1,4 @@
-# MARCtoEADforASpace
+# MARCtoEADforOAC
 XSLT stylesheet for converting MARC records to EAD using MarcEdit.
 
 ## Instructions on adding stylesheets in MarcEdit
@@ -24,7 +24,10 @@ If you're like my institution, you'll have one large MARC file with all your rec
 
 Terry Reese has a tutorial on using MARCSplit and batch processing here: https://www.youtube.com/watch?v=M1J3QEyLzss
 
-## Author Notes
-I've commented in the stylesheet where I made decisions and my thoughts behind them.  
+## Original Author Notes
+nsmeltekop writes: "I've commented in the stylesheet where I made decisions and my thoughts behind them.  
 
-I'm a n00b at XSLT, so if anyone sees issues or places for improvements, please let me know.  I am also new at GitHub, so patience is appreciated!
+I'm a n00b at XSLT, so if anyone sees issues or places for improvements, please let me know.  I am also new at GitHub, so patience is appreciated!"
+
+## Modifier Notes
+I've taken nsmeltekop's XSLT and adapted it to transforming MARC to EAD for Online Archive of California for our institution. Mostly the same transforms apply, but there are some specific OAC-oriented changes added. These are commented for clarity.

@@ -20,7 +20,7 @@ Just select it and specifiy the file that you wish to process.  Its really that 
 
 ## Batch processing records in MarcEdit
 
-If you're like my institution, you'll have one large MARC file with all your records.  You'll need use MARCSplit to seperate those into individual .mrc files.
+If you're like nsmeltekop's and my institutions, you'll have one large MARC file with all your records.  You'll need use MARCSplit to separate those into individual .mrc files.
 
 Terry Reese has a tutorial on using MARCSplit and batch processing here: https://www.youtube.com/watch?v=M1J3QEyLzss
 

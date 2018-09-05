@@ -6,7 +6,7 @@
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 <!-- 
 	Modified from MARC2EAD4Aspace by nnsmeltekop (University of Minnesota)
-	Modified by Geoffrey Skinner for creating EAD for Online Archive of California (OAC) upload), 2018-09-05
+	Modified by Geoffrey Skinner for creating EAD for Online Archive of California (OAC) upload, 2018-09-05
 	-->
 	  <xsl:template match="/">
         <?filetitle?>
